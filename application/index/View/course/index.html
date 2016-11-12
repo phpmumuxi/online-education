@@ -1,0 +1,82 @@
+{extend name="nav"} {block name="nav_content"}
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://www.imooc.com/u/2125817 -->
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>{$user.username}的动态</title>
+
+		<link rel="stylesheet" href="__PUBLIC__/css/savedc_resource.css" type="text/css">
+
+	</head>
+
+	<body>
+
+		<div class="u-container">
+
+			<div class=" page-home js-usercard-box" id="notices">
+				<div class="dyanmic-title-wrap">
+					<p class="dynamic-title">最新动态 <span class="tip-setting pointer fr"><span class="glyphicon glyphicon-th-list"></span> 全部课程</span>
+					</p>
+				</div>
+				{if $result} {volist name="result" id="data"}
+				<div class="item newcourse">
+					<a href="{:url('course/index')}" target="_blank">
+						<img src="{if $data.user.picture=='1.jpg'}__PUBLIC__/images/1.jpg{else}__IMG__/{$data.user.picture}{/if}" class="userHead  " width="40" height="40" />
+					</a>
+					<div class="content fr">
+						<div class="head">
+							<div class="name">
+								<a class=" " date-userid="2125817" href="http://www.imooc.com/u/2125817" target="_blank">
+									{$user.username}
+								</a>
+							</div>
+							<div class="time">
+								{$data.create_time|date="Y-m-d",###}
+							</div>
+							<div class="title">
+								学习了课程
+							</div>
+						</div>
+						<div class="body pr h135">
+							<a href="{:url('details/index',['id'=>$data.vid])}" target="_blank">
+								<img class="fl" src="__IMG__/{$data.video.picname}" width="240" height="135">
+								<div class="content w636 fr">
+									<div class="subtitle">
+										{$data.video.videoname}
+									</div>
+									<div class="describe">
+										<span>{if $data.video.nice == 1}精品{/if}</span>
+										<span class="ml20"><strong> 8</strong>小时<strong>14</strong>分</span>
+										<span class="ml20"> 更新完毕 </span>
+									</div>
+									<div class="detail">
+										{$data.video.descr}
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				{/volist} {else}
+				<div class="nodata">
+					你还没有过课程记录，可以先
+					<a href="{:url('video/index')}">去找找课程</a>
+				</div>
+
+				{/if}
+
+			<!-- 分页 -->
+			<div class="fenye">
+			{$result->render()}
+			</div>
+
+			<!-- .container end -->
+			</div>
+		</div>
+			{/block}
+	</body>
+
+</html>

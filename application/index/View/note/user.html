@@ -1,0 +1,89 @@
+ {extend name="nav"} {block name="nav_content"}
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://www.imooc.com/u/2125817/articles -->
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<title>{$user.username}的笔记</title>
+
+		<style type="text/css">
+			.warn-info {
+				font-size: 16px;
+				line-height: 28px;
+			}
+			.warn-tip {
+				color: #999;
+				margin-top: 30px;
+			}
+			.warn-tip a {
+				color: #08c !important;
+			}
+		</style>
+
+		<link rel="stylesheet" href="__PUBLIC__/css/savedb_resource.css" type="text/css">
+
+		<body>
+
+			<div class="u-container">
+
+				<div id="articleMain" class="article-main">
+
+					<ul class="clearfix toptab">
+						<li class="tabactive">
+							<a href="#">我的手记</a>
+						</li>
+						<div class="left_warp">
+							<span class="glyphicon glyphicon-th-list"></span> 全部手记
+						</div>
+					</ul>
+
+					<div id="articlesList" class="articles-list">
+					{if $result}
+						{volist name="result" id="data"}
+						<div class="list-item article-item ">
+						<h3 class="item-title">
+               			 	<a target="_blank" href="#" class="title-detail">{$data.title}</a>
+               			 </h3>
+							<!-- text -->
+							<div class="">
+								<!-- <p class="item-bd">取值： 当对一个对象的不存在的属性进行&ldquo;取值&rdquo;的时候，就会自动调用内部方法：__GET() 其中，该方法可以带一个形参，表示这个要对之取值的不存在的属性名（字符串）； 赋值： 当对一个对象的不存在的属性进行&ldquo;赋值&rdquo;的时候，就会自动调用内部方法：__SET() 它有2个形参，分别代表要对不存在的属性进行赋值的时候的&ldquo;属性名&rdquo;和&ldquo;属性值...<a class="read-more" target="_blank" href="/article/13644">[查看全文]</a></p> -->
+								<p class="item-bd">{$data.content}</p>
+
+							</div>
+							<div class="item-btm clearfix">
+								<ul class="l left-info">
+								</ul>
+
+								<div class="r right-info">
+
+									<div class=" l">
+										<i class="icon sns-comment"></i><em>{$data.create_time|date="Y-m-d H:i:s",###} 原创</em>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+						{/volist}
+						{else}
+							<div class="nodata">
+					            你还没有任何手记，快去 <a href="#">发表手记</a> 吧。
+					        </div>
+						{/if}
+					</div>
+					<!-- 分页 -->
+					<div class="fenye">
+						{$result->render()}
+					</div>
+
+				</div>
+			</div>
+			<!-- .container end -->
+
+			{/block}
+
+		</body>
+
+</html>

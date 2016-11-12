@@ -1,0 +1,58 @@
+﻿@charset "utf-8";
+
+.heijian {
+  /*font-family: 'heijian', 'Microsoft Yahei', Tahoma, Helvetica, Arial;*/
+  font-family: 'Microsoft Yahei', Arial, 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.xheijian {
+  /*font-family: 'xheijian', 'Microsoft Yahei', Tahoma, Helvetica, Arial;*/
+  font-family: 'Microsoft Yahei', Arial, 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+html {
+  width: 100%;
+  font-size: 10px/1.5;
+  /*font-family: 'xheijian', 'Microsoft Yahei', Tahoma, Helvetica, Arial;*/
+  font-family: 'Microsoft Yahei', Arial, 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+html.specialFontForbid,
+html.specialFontForbid div,
+.specialFontForbid .heijian ,
+.specialFontForbid .xheijian {
+  font-family: 'Microsoft Yahei', Arial, 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.specialFontForbid .section4-text{
+  font-family: 'Microsoft Yahei', Arial, 'Lantinghei SC', 'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+a{
+  text-decoration: none;
+}
+.topbannaawmj{ width:100%; height:308px; margin:0 auto; background:url(../images/ban.jpg) no-repeat top center;}
+
+/* posterTvGrid */
+.posterTvGrid{position:relative;height:572px;}
+.posterTvGrid img{max-width:none;max-height:none;border:0 none;background:#888;}
+.posterTvGrid .contentHolder{position:relative;overflow:hidden;}
+.posterTvGrid .contentHolderUnit{cursor:pointer;position:absolute;width:940px;height:572px;}
+.posterTvGrid .contentHolderUnit a.elementLink{display:block;overflow:hidden;z-index:3;position:absolute;left:0;right:0;width:100%;height:100%;}
+.posterTvGrid .contentHolderUnit img{width:100%;height:100%;}
+.posterTvGrid .contentHolderUnit .elementTitle{}
+.posterTvGrid .contentHolderUnit .elementOverlay{z-index:1;position:absolute;top:0;left:0;background:#fff;width:100%;height:100%;opacity:0;filter:opacity=0;}
+.posterTvGrid .contentHolderUnit .leftShadow{position:absolute;top:23px;left:-174px;width:174px;height:224px;backgr.ound:url(img/leftShadow.png) no-repeat;}
+.posterTvGrid .contentHolderUnit .rightShadow{position:absolute;top:23px;right:-174px;width:174px;height:224px;backg/round:url(img/rightShadow.png) no-repeat;}
+.posterTvGrid .bannerControls{}
+.posterTvGrid .leftNav,.posterTvGrid .rightNav{cursor:pointer;z-index:10;position:absolute;top:50%;width:45px;height:45px;margin-top:-43px;}
+.posterTvGrid .leftNav{left:-60px;background:url("../images/1.png") no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/slide_prev_btn.png");}
+.posterTvGrid .rightNav{right:250px;background:url("../images/2.png") no-repeat;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="img/slide_next_btn.png");}
+.posterTvGrid .leftNav:hover{}
+.posterTvGrid .rightNav:hover{}
+.posterTvGrid .bottomNav{z-index:140;position:absolute;width:100%;height:10px;margin-top:270px;padding:10px 0 0;text-align:center; display:none;}
+.posterTvGrid .bottomNavButtonOFF{cursor:pointer;overflow:hidden;display:inline-block;*display:inline;*zoom:1;width:10px;height:10px;margin:0 5px;vertical-align:top;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background:#c3c3c3;}
+.posterTvGrid .bottomNavButtonOFF:hover{background:#aaa;}
+.posterTvGrid .bottomNavButtonON,
+.posterTvGrid .bottomNavButtonON:hover{background:#69aaec;}
+.posterTvGrid .bottomNavLeft{}
+.posterTvGrid .bottomNavRight{}

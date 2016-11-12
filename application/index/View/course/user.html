@@ -1,0 +1,107 @@
+ {extend name="nav"} {block name="nav_content"}
+
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://www.imooc.com/u/4074002/courses -->
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>{$user.username}的课程</title>
+		<style type="text/css">
+			.warn-info {
+				font-size: 16px;
+				line-height: 28px;
+			}
+
+			.warn-tip {
+				color: #999;
+				margin-top: 30px;
+			}
+
+			.warn-tip a {
+				color: #08c !important;
+			}
+		</style>
+
+	</head>
+
+
+			<div class="u-container">
+				<div class="c-tab clearfix">
+					<div class="tool-left l">
+
+						<a href="{:url('course/user')}" class="sort-item active">最近学习</a>
+						<a href="{:url('course/collection')}" class="sort-item ">我的收藏</a>
+
+					</div>
+					<div class="tool-right r">
+						<div class="tool-all">
+							<span class="glyphicon glyphicon-th-list"></span> 全部课程
+						</div>
+					</div>
+				</div>
+
+				<div class="js-course-list my-space-course study-tl">
+				{if $result}
+					{volist name="result" id="data"}
+					<div class="clearfix tl-item  tl-item-first">
+						<span class="time">
+                		<b>{$data.create_time|date="Y",###}</b>
+               			<em>{$data.create_time|date="m月d日",###}</em>
+           				</span>
+						<div class="course-list course-list-m">
+							<ul class="clearfix">
+								<li class="course-one" data-courseid="115" data-uid="4074002">
+									<div class="course-list-img l">
+										<a href="{:url('details/index',['id'=>$data.vid])}" target="_blank">
+											<img width="200" height="113" alt="PHP实现验证码制作" src="__IMG__/{$data.video.picname}">
+										</a>
+									</div>
+									<div class="course-list-cont">
+										<h3 class="study-hd">
+			                           		 <a href="{:url('details/index',['id'=>$data.vid])}" target="_blank">{$data.video.videoname}</a>
+		                        			<span class="i-new">更新完毕</span>
+
+							        	 </h3>
+										<div class="study-points">
+											<span class="i-left span-common">已学10%</span>
+											<span class="i-mid span-common">用时 0分</span>
+											<span class="i-right span-common">学习至{$data.video.videoname}</span>
+										</div>
+										<div class="catog-points">
+											<span class="i-left span-common"><a href="http://www.imooc.com/u/4074002/course/115/notes">笔记 <i>{$data.count1}</i></a></span>
+											<span class="i-mid span-common"><a href="http://www.imooc.com/u/4074002/course/115/codes">代码 <i>{$data.count1}</i></a></span>
+											<span class="i-right span-common"><a href="http://www.imooc.com/u/4074002/course/115/questions">问答 <i>{$data.count2}</i></a></span>
+
+											<a href="{:url('details/index',['id'=>$data.vid])}" target="_blank" class="btn-red continute-btn">继续学习</a>
+
+										</div>
+									</div>
+
+								</li>
+							</ul>
+						</div>
+					</div>
+					{/volist}
+				 {else}
+			        <div class="nodata">
+			            你还没有课程记录，可以先 <a href="{:url('video/index')}">去找找课程</a>
+			        </div>
+
+			    {/if}
+
+				<!-- 分页 -->
+				<div class="fenye">
+					{$result->render()}
+				</div>
+
+			</div>
+
+		<!-- .container end -->
+		</div>
+
+		{/block}
+
+	</body>
+
+</html>

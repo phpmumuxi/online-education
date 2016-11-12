@@ -1,0 +1,59 @@
+{extend name="base"} {block name="content"}
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="utf-8" />
+        <title>发表问题</title>
+        <link rel="stylesheet" href="__PUBLIC__/editor/examples/css/style.css" />
+        <link rel="stylesheet" href="__PUBLIC__/editor/css/editormd.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.css">
+        <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+
+    </head>
+    <body>
+    <form action="{:url('Ask/check')}" method="post">
+        <div id="layout">
+
+            <header>
+                <h3>标题</h3>
+            </header>
+
+           <div class="form-group">
+
+                <div class="col-md-7 col-md-offset-1"  >
+                  <input type="text" class="form-control" name="title" placeholder="请输入问题的标题">
+                </div>
+            </div>
+            <header>
+                <h3>内容</h3>
+            </header>
+            <div id="test-editormd">
+                <textarea style = "display:none;" name = "content"></textarea>
+            </div>
+        </div>
+        <div align="left" style="margin-left:130px;">
+            <input type="hidden" name="vid" value="{$id}">
+            <input type="submit" class="btn btn-primary" value="发表">
+        </div>
+
+    </form>
+
+
+        <script src="__PUBLIC__/editor/examples/js/jquery.min.js"></script>
+        <script src="__PUBLIC__/editor/editormd.min.js"></script>
+        <script type="text/javascript">
+			var testEditor;
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width   : "80%",
+                    height  : 500,
+                    syncScrolling : "single",
+                    path    : "__PUBLIC__/editor/lib/"
+                });
+            });
+        </script>
+
+        {/block}
+
+    </body>
+</html>

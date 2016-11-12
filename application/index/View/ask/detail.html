@@ -1,0 +1,172 @@
+{extend name="base"} {block name="content"}
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://www.imooc.com/wenda/detail/334712 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>问题详情</title>
+
+<style type="text/css">
+    .warn-info{
+        font-size: 16px;
+        line-height: 28px;
+    }
+    .warn-tip{
+        color: #999;
+        margin-top: 30px;
+    }
+    .warn-tip a{
+        color: #08c !important;
+    }
+    .fenye{
+        margin-left: 300px;
+        margin-top:30px;
+    }
+    </style>
+
+<link rel="stylesheet" href="__PUBLIC__/css/savedh_resource.css" type="text/css">
+
+</head>
+<body>
+
+
+<div class="wenda clearfix">
+    <div class="l wenda-main">
+
+            <div class="qa-content" data-qid="334712">
+                <div class="qa-content-inner ">
+                    <div id="js-content-main">
+                        <div class="detail-q-title clearfix">
+                            <h1 class="js-qa-wenda-title detail-wenda-title l">{$result['title']}</h1>
+                            <!-- 编辑 -->
+                        </div>
+
+                        <div id="js-qa-wenda" class="detail-wenda imgPreview rich-text">{$result['content']}</div>
+                    </div>
+
+                    <div class="qa-header detail-user-tips">
+
+                        <!-- 个人信息 -->
+                        <div class="detail-user">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <a target="_blank" class="qa-author">{$result.user.username}</a>
+                        </div>
+                        <div class="detail-r">
+                        <span class="time">{$result.create_time|date="Y-m-d H:i:s",###}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        {if $list}
+            <!-- 回答数 -->
+            <div class="ans_num">{$count}个回答</div>
+             <!-- 回答回复 start -->
+             {volist name="list" id="data"}
+            <div class="ques-answer">
+                    <div class="answer-con first" id="id_209128">
+                        <div class="user-pic l">
+                            <a href="" target="_blank">
+                                <img src="{if $data.user.picture=='1.jpg'}__PUBLIC__/images/1.jpg{else}__IMG__/{$data.user.picture}{/if}" width="40" height="40" />
+                            </a>
+                        </div><!--.user end-->
+                        <div class="detail-r">
+                            <span class="time">{$data.create_time|date="Y-m-d H:i:s",###}</span>
+                                <a class="detail-name" href="" target="_blank">{$data.user.username}</a>
+                             <p class="detail-signal">{$data.user.introduce}</p>
+                        </div>
+
+
+                        <div class="answer-content rich-text imgPreview">{$data.content}</div>
+
+
+                        <div class="ctrl-bar clearfix js-wenda-tool">
+
+                            <span class="glyphicon glyphicon-ok"><a href="{:url('Reply/love',['id'=>$data.id,'qid'=>$data.qid])}"> 赞同({$data.love})</a></span>
+
+                            <span class="glyphicon glyphicon-remove"><a href="{:url('Reply/dislike',['id'=>$data.id,'qid'=>$data.qid])}">反对({$data.dislike})</a></span>
+
+                        </div><!--.ctrl-bar end-->
+
+                    </div><!--.answer-con end-->
+
+            </div>
+            {/volist}
+
+        {else}
+
+            <div class="none_ans">暂无任何回答</div>
+
+        {/if}
+
+            <br />
+            <div id="js-qa-comment-input" class="detail-comment-input js-msg-context clearfix">
+            <form  method="post" action="{:url('Reply/check')}">
+
+                <input type="hidden" name="uid" value="{$user.id}"/>
+                <input type="hidden" name="qid" value="{$result.id}"/>
+                <input type="hidden" name="vid" value="{$result.vid}"/>
+
+                <div id="add-answer" class="detail-ci-avator">
+                    <h3 class="answer-add-tip">添加回答</h3>
+                     <textarea cols="108" name="content"></textarea>
+                </div>
+
+                <div id="avator-wrap" class="detail-ci-avator">
+                <br>
+                    <img src="{if $user.picture=='1.jpg'}__PUBLIC__/images/1.jpg{else}__IMG__/{$user.picture}{/if}" alt="">
+                    <div class="detail-r clearfix">
+                        <span class="detail-name">{$user.username}</span>
+                        <p class="detail-signal"></p>
+                    </div>
+                </div>
+                <div id="js-reply-wrap" class="">
+
+                    <div id="js-qa-ci-footer" class="qa-ci-footer clearfix">
+
+                        <div class="qa-ci-footright">
+                            <input type="submit" value="回 答" class="btn btn-danger"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+
+           <!-- 分页 -->
+            <div class="fenye">
+            {$list->render()}
+            </div>
+
+    </div>
+
+        <div class="wenda-slider r">
+            <div class="quiz"><a href="{:url('Ask/add',['id'=>$result.vid])}" class="js-quiz">我要提问</a></div>
+            <!-- 相关问题 -->
+              <div class="panel about-ques">
+                <div class="panel-heading">
+                  <h2 class="panel-title">热门问题</h2>
+                </div>
+                {volist name="hot" id="vo"}
+                <div class="panel-body clearfix">
+                        <div class="mkhotlist padtop">
+                            <a class="relwenda" href="{:url('Ask/detail,['id' => $vo.id]')}" target="_blank">{$vo.title}</a><i class="answer-num"> {$vo.count2} 回答</i>
+                        </div>
+                </div>
+                {/volist}
+              </div>
+                        <!-- 广告 -->
+                <div class="advertisement">
+                    <a href="" data-ast="yuanwendetailright_1_192" target="_blank">
+                        <img src="__PUBLIC__/img/5791b42900016c5402800100.jpg" title=" 私密有料之后端开发，面试被问过哪些技">
+                    </a>
+                </div><!--.advertisement end-->
+
+
+        </div>
+
+</div>
+
+{/block}
+
+</body>
+</html>

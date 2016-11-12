@@ -1,0 +1,168 @@
+{extend name="base"} {block name="content"}
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://www.imooc.com/wenda -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>问题展示</title>
+
+    <link rel="stylesheet" href="__PUBLIC__/css/savedf_resource.css" type="text/css">
+
+    <style type="text/css">
+        .fenye{
+        margin-left: 300px;
+        margin-top:30px;
+    }
+
+    </style>
+
+</head>
+<body>
+
+
+
+
+<div class="wenda clearfix">
+
+
+    <div class="l wenda-main">
+      <div class="wd-top-slogan">
+        <span>程序员自己的问答社区</span>
+        <a class="js-quiz" href="{:url('Ask/user')}" target="_blank">我的问答社区</a>
+      </div>
+      <div class="nav">
+        <a href="{:url('Ask/index')}" class="active">推荐</a>
+        <a href="{:url('Ask/recommend')}">最新</a>
+        <a href="{:url('Ask/toreply')}">等待回答</a>
+      </div><!--.nav end-->
+
+      <!--公告位-->
+      <ul class="recommend">
+        {volist name="result" id="not"}
+        <li><i class="icon-flag2"></i><a href=""title="{$not.title}">{$not.title}</a></li>
+        {/volist}
+      </ul><!--recommend end-->
+      <!--左侧列表内容-->
+     <div class="wenda-list">
+        {volist name="ask" id="data"}
+        <div class="ques-answer">
+            <div class="tag-img">
+                  <a href="">
+                        <img src="__IMG__/{$data.user.picture}" title="Html5">
+                    </a>
+             </div><!--.tag-img end-->
+            <div class="from-tag">        来自
+                <a href="" target="_blank">{$data.video.videoname}</a>
+            </div><!--.from-tag end-->
+            <div class="ques-con">
+            <a href="{:url('Ask/detail',['id'=>$data.id])}" class="ques-con-content" target="_blank" >{$data.title}</a>
+
+            </div>
+            {if $data.reply}
+            <div class="answer-con first" data-answer-id="208995" id="answer-con">
+                <div class="user">
+
+                    <a href="" target="_blank">{$data.reply.user.username}</a><span class="signature">回答：</span>
+                </div>
+                <div class="answer-content">{$data.reply.content}</div>
+
+                <div class="ctrl-bar clearfix">
+                    <span class="glyphicon glyphicon-ok"><a href="{:url('Reply/love',['id'=>$data.reply.id,'qid'=>$data.id])}"> 赞同({$data.reply.love})</a></span>
+                    <span class="glyphicon glyphicon-remove"><a href="{:url('Reply/dislike',['id'=>$data.reply.id,'qid'=>$data.id])}">反对({$data.reply.dislike})</a></span>
+                </div><!--.ctrl-bar end-->
+            </div><!--.answer-con end-->
+            {else}
+                <br/>
+                <div class="none_ans">暂无任何回答</div>
+
+            {/if}
+
+        </div><!--.ques-answer end-->
+        {/volist}
+
+        <!-- 分页 -->
+        <div class="fenye">
+        {$ask->render()}
+        </div>
+
+     </div>
+   </div>
+
+  <div class="r wenda-slider">
+    <div class="user-about">
+        <div class="user-info">
+            <div class="user-pic">
+                <a href="{:url('Course/index')}" target="_blank">
+                    <img src="__IMG__/{$user.picture}" >
+                </a>
+            </div>
+            <div class="user-name">
+                <a href="{:url('Course/index')}">{$user.username}</a>
+                                    </div>
+            <div class="integral-info clearifx">
+                <a href="{:url('Course/index')}t" class="integral">积分：{$user.point}</a>
+                <a href="{:url('Course/index')}" class="integral-mall">等级：{$user.level}</a>
+            </div>
+        </div><!--.user-info end-->
+        <div class="user-action">
+            <span class="ques"><a href="{:url('Ask/user')}" target="_blank">提问</a></span>
+            <span class="reply"><a href="{:url('Reply/user')}" target="_blank">回答</a></span>
+        </div><!--.user-action end-->
+    </div><!--.user-about end-->
+
+    <div class="recommend-class">
+        <div class="title clearfix">
+            <h3>推荐课程</h3>
+            <span class="all-cls">全部分类</span>
+        </div><!--title end-->
+        <ul class="cls-list">
+        {volist name="gvideo" id="gvo"}
+            <li>
+                <div class="class-info">
+                    <div class="class-icon">
+                        <a href="{:url('Details/index',['id'=>$gvo.id])}" target="_blank">
+                            <img src="__IMG__/{$gvo.picname}" >
+                        </a>
+                    </div><!--.class-icon end-->
+                    <h4><a href="{:url('Details/index',['id'=>$gvo.id])}" target="_blank">{$gvo.videoname}</a></h4>
+                    <p class="follow-person">{$gvo.clicknum}人浏览</p>
+                    <a href="{:url('Details/index',['id'=>$gvo.id])}" data-tag-id="11" class="follow">查看</a>
+                 </div><!--.class-info end-->
+                <div class="desc">{$gvo.descr}</div>
+            </li><!--li end-->
+        {/volist}
+        </ul><!--.cls-list end-->
+    </div><!--.recommend-class end-->
+
+    <div class="advertisement">
+            <a href="" data-ast="yuanwenindexright_1_189" >
+            <img src="__PUBLIC__/img/57dfa24c0001b40d02800100.jpg" alt="linux问答">
+        </a>
+    </div><!--.advertisement end-->
+    <div class="hot-ques">
+        <h3 class="title">热门问题</h3>
+        <ul>
+        {volist name="hot" id="vo"}
+            <li>
+                <p class="content"><a target="_blank" href="{:url('Ask/detail',['id'=>$data.id])}">{$vo.title}</a></p>
+                <div class="info-bar clearfix">
+                    <a target="_blank" href="{:url('Ask/detail',['id'=>$data.id])}" class="answer-num">{$vo.count2} 回答</a>
+                    <a target="_blank" href="{:url('Ask/detail',['id'=>$data.id])}" class="answer-num">{$vo.clicknum} 浏览量</a>
+                    <a target="_blank" href="{:url('Ask/alluser',['id'=>$data.video.id])}" class="from">来自 {$vo.video.videoname}</a>
+                </div>
+            </li>
+        {/volist}
+        </ul><!--ul end-->
+    </div><!--.hot-ques end-->
+
+    </div>
+</div>
+
+
+
+
+
+{/block}
+</body>
+</html>

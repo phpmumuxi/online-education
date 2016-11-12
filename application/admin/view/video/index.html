@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__PUBLIC__/css/pintuer.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/pintuer.js"></script>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<form method="post" action="{:url('Video/search')}" id="listform">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">视频列表</strong> </div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="{:url('add')}"> 添加视频</a> </li>
+        <li>搜索：</li>
+        <li>
+          <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <input  type="submit" class="btn btn-info" value="搜索">
+
+
+
+          </li>
+      </ul>
+      </form>
+    </div>
+    <table class="table table-hover text-center" >
+      <tr>
+        <th ></th>
+        <th width="2%" style="text-align:left; padding-left:20px;">ID</th>
+        <th width="3%">分类</th>
+        <th width="4%">用户</th>
+        <th width="10%">名称</th>
+        <th width="6%">缩略图</th>
+        <th width="10%">描述</th>
+        <th width="4%">大小</th>
+        <th width="4%">点赞数</th>
+        <th width="4%">浏览数</th>
+        <th width="7%">添加时间</th>
+        <th width="4%">精品</th>
+        <th width="4%">推荐</th>
+        <th width="5%">状态</th>
+        <th width="280">操作</th>
+      </tr>
+      {volist name="result" id="vo"}
+        <tr>
+            <td> </td>
+          <td>{$vo.id}</td>
+          <td>{$vo.cat.name}</td>
+          <td>{$vo.user.username}</td>
+          <td><a href="{:url('Index/Details/index',['id' => $vo.id])}" target="_blank">{$vo.videoname}</a></td>
+
+           <td align="center">
+             {if condition="$vo['picname'] neq '' "}
+                <img src="__IMGL__/{$vo.picname}" height="50">
+                      {else /}
+                       暂无缩略图
+                 {/if}
+             </td>
+          <td>{$vo.descr}</td>
+          <td>{$vo.size}</td>
+          <td>{$vo.favonum}</td>
+          <td>{$vo.clicknum}</td>
+          <td>{$vo.create_time|date = 'Y-m-d',###}</td>
+
+          <td> {if $vo.nice == 1} <a class="btn btn-default" role="button" href="{:url('nice',['id'=>$vo.id])}">是</a>
+          {else /} <a class="btn btn-default" role="button" href="{:url('nice',['id'=>$vo.id])}">否</a>
+          {/if}
+          </td>
+
+          <td> {if $vo.good == 1} <a href="{:url('good',['id'=>$vo.id])}" class="btn btn-default" role="button">是</a>
+          {else /} <a href="{:url('good',['id'=>$vo.id])}" class="btn btn-default" role="button">否</a>
+          {/if}</td>
+
+          <td>
+
+          {if $vo.status == 2} 上线
+          {else} 下线
+          {/if}
+
+          </td>
+
+          <td><div class="button-group"> <a class="button border-main" href="{:url('edit',['id'=>$vo.id])}"><span class="icon-edit"></span> 修改</a>
+{if condition="($vo.status == 2)"}
+ 			<a class="button border-red" href="{:url('delete',['id'=>$vo.id])}" >
+          <span class="icon-trash-o"></span>下线</a>
+{else /}
+			<a class="button border-red" href="{:url('delete',['id'=>$vo.id])}" >
+			<span class="icon-trash-o"></span>上线</a>
+	  {/if}
+
+
+          </a> </div></td>
+        </tr>
+{/volist}
+
+ </td>
+
+
+      </tr>
+      <tr>
+        <td colspan="22"><div class="pagelist">{$page} </div></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+</html>

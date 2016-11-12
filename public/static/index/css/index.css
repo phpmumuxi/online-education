@@ -1,0 +1,78 @@
+*{padding:0;margin:0;}
+/* Download by http://www.codefans.net*/
+body{
+font-size:14px;
+background-color:#F9FCFD;
+}
+
+.highlight{ background-color:#FCFFD7;}
+.selected{background-color:#FFEBD7;}
+
+.div_topic{
+padding:10px;
+border:#73AFD0 dashed;
+border-width: 0 0 1px 0;
+background-color:#F9FCFD;
+}
+
+.div_topic.odd{background-color: #E0EEF5;}
+
+.div_topic h4{
+font-size:16px;
+color:#22536A;
+display:block;
+padding:3px;
+}
+
+.div_topic p{
+display:block;
+padding:3px;
+}
+
+.div_topic h4 span{
+padding:0 0 0 20px;
+color:#FF0000;
+display:none;
+}
+
+#fixedLayer {
+width:100%;
+background-color: #A3CBE0;
+border:1px solid #73AFD0;
+position:fixed;
+left:0px;
+top:0px;
+}
+
+#answer_last {
+width:150px;
+padding:10px;
+background-color:#FFCC00;
+border:1px dashed #888313;
+position:fixed;
+right:0px;
+top:42px;
+display:none;
+}
+
+#fixedLayer div{
+padding:10px;
+}
+
+#topic_num{
+width:30px;
+text-align:center;
+}
+
+#topic_right{
+float:right;
+}
+
+#status{
+color:#FF0000;
+font-size:14;
+font-weight:bold;}
+
+
+
+

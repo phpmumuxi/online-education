@@ -1,0 +1,339 @@
+ {extend name="base"} {block name="content"}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$result[0]['videoname']}</title>
+<link rel="stylesheet" href="__PUBLIC__/css/savede_resource.css" type="text/css">
+<link rel="stylesheet" href="__PUBLIC__/css/a.css" type="text/css">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/ajax.js"></script>
+<style type="text/css">
+<style type="text/css">
+body,td,th {
+	font-size: 14px;
+	line-height: 26px;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	padding:10px;
+
+
+}
+p {
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding-left: 10px;
+}
+#a1{
+
+	width:90%;
+	height:480px;
+	float:left;
+	margin-left:70px;
+	margin-top: 10px;
+}
+.fenye{
+        margin-left: 300px;
+        margin-top:30px;
+    }
+.tiwen{
+	margin-left:750px;
+	margin-top: 10px;
+}
+</style>
+
+<script type="text/javascript" src="http://localhost/ckplayer/js/offlights.js"></script>
+</head>
+
+<body>
+
+<div id="a1" ></div>
+<!--
+上面一行是播放器所在的容器名称，如果只调用flash播放器，可以只用<div id="a1"></div>
+-->
+<div align="center">
+<script type="text/javascript" src="http://localhost/ckplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
+<script type="text/javascript">
+	//如果你不需要某项设置，可以直接删除，注意var flashvars的最后一个值后面不能有逗号
+/*	function loadedHandler(){
+		if(CKobject.getObjectById('ckplayer_a1').getType()){
+			alert('播放器已加载，调用的是HTML5播放模块');
+		}else{
+			alert('播放器已加载，调用的是Flash播放模块');
+		}
+	}*/
+	var _nn=0;
+	function ckplayer_status(str){
+		_nn+=1;
+		if(_nn>100){
+			_nn=0;
+			document.getElementById('statusvalue').value='';
+		}
+		document.getElementById('statusvalue').value=str+'\n'+document.getElementById('statusvalue').value;
+	}
+
+	var flashvars={
+		f:'http://www.tp5.com/static/uploads/video/{$name}',//视频地址
+		a:'',//调用时的参数，只有当s>0的时候有效
+		s:'0',//调用方式，0=普通方法（f=视频地址），1=网址形式,2=xml形式，3=swf形式(s>0时f=网址，配合a来完成对地址的组装)
+		c:'0',//是否读取文本配置,0不是，1是
+		x:'',//调用配置文件路径，只有在c=1时使用。默认为空调用的是ckplayer.xml
+		i:'http://www.tp5.com/static/uploads/img/{$picname}',//初始图片地址
+		d:'http://www.tp5.com/static/uploads/img/{$picname}',//暂停时播放的广告，swf/图片,多个用竖线隔开，图片要加链接地址，没有的时候留空就行
+		u:'',//暂停时如果是图片的话，加个链接地址
+		l:'http://www.ckplayer.com/down/adv6.1_1.swf|http://www.ckplayer.com/down/adv6.1_2.swf',//前置广告，swf/图片/视频，多个用竖线隔开，图片和视频要加链接地址
+		r:'',//前置广告的链接地址，多个用竖线隔开，没有的留空
+		t:'10|10',//视频开始前播放swf/图片时的时间，多个用竖线隔开
+		y:'',//这里是使用网址形式调用广告地址时使用，前提是要设置l的值为空
+		z:'http://www.tp5.com/static/uploads/img/{$picname}',//缓冲广告，只能放一个，swf格式
+		e:'5',//视频结束后的动作，0是调用js函数，1是循环播放，2是暂停播放并且不调用广告，3是调用视频推荐列表的插件，4是清除视频流并调用js功能和1差不多，5是暂停播放并且调用暂停广告
+		v:'80',//默认音量，0-100之间
+		p:'0',//视频默认0是暂停，1是播放，2是不加载视频
+		h:'0',//播放http视频流时采用何种拖动方法，=0不使用任意拖动，=1是使用按关键帧，=2是按时间点，=3是自动判断按什么(如果视频格式是.mp4就按关键帧，.flv就按关键时间)，=4也是自动判断(只要包含字符mp4就按mp4来，只要包含字符flv就按flv来)
+		q:'',//视频流拖动时参考函数，默认是start
+		m:'',//让该参数为一个链接地址时，单击播放器将跳转到该地址
+		o:'',//当p=2时，可以设置视频的时间，单位，秒
+		w:'',//当p=2时，可以设置视频的总字节数
+		g:'',//视频直接g秒开始播放
+		j:'',//跳过片尾功能，j>0则从播放多少时间后跳到结束，<0则总总时间-该值的绝对值时跳到结束
+		k:'32|63',//提示点时间，如 30|60鼠标经过进度栏30秒，60秒会提示n指定的相应的文字
+		n:'这是提示点的功能，如果不需要删除k和n的值|提示点测试60秒',//提示点文字，跟k配合使用，如 提示点1|提示点2
+		wh:'',//宽高比，可以自己定义视频的宽高或宽高比如：wh:'4:3',或wh:'1080:720'
+		lv:'0',//是否是直播流，=1则锁定进度栏
+		loaded:'loadedHandler',//当播放器加载完成后发送该js函数loaded
+		//调用播放器的所有参数列表结束
+		//以下为自定义的播放器参数用来在插件里引用的
+		my_title:'{$result[0]['videoname']}',
+		my_url:encodeURIComponent(window.location.href)//本页面地址
+		//调用自定义播放器参数结束
+		};
+	var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always'};//这里定义播放器的其它参数如背景色（跟flashvars中的b不同），是否支持全屏，是否支持交互
+	var video=['http://www.tp5.com/static/uploads/video/{$name}->video/mp4'];
+	CKobject.embed('http://localhost/ckplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','100%','100%',false,flashvars,video,params);
+	/*
+		以上代码演示的兼容flash和html5环境的。如果只调用flash播放器或只调用html5请看其它示例
+	*/
+	function videoLoadJs(s){
+		alert("执行了播放");
+	}
+	function playerstop(){
+		//只有当调用视频播放器时设置e=0或4时会有效果
+		alert('播放完成');
+	}
+	var _nn=0;//用来计算实时监听的条数的，超过100条记录就要删除，不然会消耗内存
+
+	function getstart(){
+		var a=CKobject.getObjectById('ckplayer_a1').getStatus();
+		var ss='';
+		for (var k in a){
+			ss+=k+":"+a[k]+'\n';
+		}
+		alert(ss);
+	}
+	function ckadjump(){
+		alert('这里演示了点击跳过广告按钮后的执行的动作，如果注册会员可以做成直接跳过的效果。');
+	}
+	//开关灯
+	var box = new LightBox();
+	function closelights(){//关灯
+		box.Show();
+		CKobject._K_('a1').style.width='940px';
+		CKobject._K_('a1').style.height='550px';
+		CKobject.getObjectById('ckplayer_a1').width=940;
+		CKobject.getObjectById('ckplayer_a1').height=550;
+	}
+	function openlights(){//开灯
+		box.Close();
+		CKobject._K_('a1').style.width='600px';
+		CKobject._K_('a1').style.height='400px';
+		CKobject.getObjectById('ckplayer_a1').width=600;
+		CKobject.getObjectById('ckplayer_a1').height=400;
+	}
+	function changePrompt(){
+		CKobject.getObjectById('ckplayer_a1').promptUnload();//卸载掉目前的
+		CKobject.getObjectById('ckplayer_a1').changeFlashvars('{k->10|20|30}{n->重设提示点一|重设提示点二|重设提示点三}');
+		CKobject.getObjectById('ckplayer_a1').promptLoad();//重新加载
+	}
+	function addflash(){
+		if(CKobject.Flash()['f']){
+			CKobject._K_('a1').innerHTML='';
+			CKobject.embedSWF('http://localhost/ckplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',flashvars,params);
+		}
+		else{
+			alert('该环境中没有安装flash插件，无法切换');
+		}
+	}
+	function addhtml5(){
+		if(CKobject.isHTML5()){
+			support=['all'];
+			CKobject._K_('a1').innerHTML='';
+			CKobject.embedHTML5('a1','ckplayer_a1',600,400,video,flashvars,support);
+		}
+		else{
+			alert('该环境不支持html5，无法切换');
+		}
+	}
+
+
+
+</script>
+</div>
+
+<div class="course-subcontainer clearfix">
+  <div class="course-left">
+      <ul class="course-menu course-video-menu clearfix js-course-menu" data-ower="all" data-sort="last" style="position: absolute; left: 0px;">
+
+        <!--点赞图标-->
+      {if $data.zan == 0}
+       <li class="course-menu-item" >
+    	<a id = "zan" href="{:url('Details/love',['id' => $result[0]['id']])}" rel="{$result[0]['id']}">
+    	<span class="glyphicon glyphicon-thumbs-up"></span>
+    	</a>
+    </li>
+    {/if}
+
+
+<!-- 收藏图标 -->
+{if $data.collection == 0}
+	 <li class="course-menu-item" >
+    	<a id = "collection" href="{:url('Details/collection',['id' => $result[0]['id']])}">
+    	<span class="glyphicon glyphicon-star-empty"></span>
+    	</a>
+    </li>
+    {else}
+     <li class="course-menu-item" >
+    	<a id = "collection" href="{:url('Details/uncollection',['id' => $result[0]['id']])}">
+    	<span class="glyphicon glyphicon-star"></span>
+    	</a>
+    </li>
+    {/if}
+
+    <li class="course-menu-item"><a href="{:url('Details/index',['id' => $result[0]['id']])}" id="plMenu">评论</a></li>
+
+     <li class="course-menu-item"><a href="{:url('Ask/alluser',['id' => $result[0]['id']])}" id="noteMenu">提问</a></li>
+
+    <li class="course-menu-item"><a href="{:url('Note/add',['id' => $result[0]['id']])}" id="noteMenu">手记</a></li>
+
+
+
+        </ul>
+	<div id="disArea" class="lists-container list-wrap">
+
+	    <div id="qa-content" class="list-tab-con">
+	        <div id="qaLoadListData">
+	          <div class="sortlist">
+
+	        	<div class="comp-filter-bar">
+				    <a href="{:url('Ask/alluser',['id' => $result[0]['id']])}" class="bar-item active">全部</a>
+				    <a href="{:url('Ask/jinghua',['id' => $result[0]['id']])}" class="bar-item ">精华</a>
+				    <div class="tiwen">
+						<a href="{:url('Ask/add',['id' => $result[0]['id']])}" class="btn btn-primary btn-lg" >我要提问</a>
+					</div>
+				</div>
+
+
+	          </div>
+
+
+				<div class="answertabcon">
+				        <div class="course_quescon">
+				        {volist name = "ask" id = "vo"}
+				            <div class="wenda-listcon mod-qa-list clearfix">
+				            <div class="headslider qa-medias l">
+				                <a href="#" class="media" target="_blank" title="archery">
+				                <img src="__IMG__/{$vo.user.picture}" width="40" height="40">
+				                </a>
+				            </div>
+
+				            <div class="wendaslider qa-content">
+				                <h2 class="wendaquetitle qa-header">
+				                    <a href="#" class="name" target="_blank" title="LouisDeFunes">
+				                       {$vo.user.username}
+				                    </a>
+				                    <div >
+				                        <a href="{:url('Ask/detail',['id'=> $vo.id])}" target="_blank" >
+				                            <h4>{$vo.title}</h4>
+				                        </a>
+				                    </div>
+				                </h2>
+				                {if $vo.reply}
+				                <div class="replycont qa-body clearfix">
+
+				                    <span class="replysign praise">
+				                   		 [最新 <a href="" target="_blank" title="叫我煤老板" class="nickname">{$vo.reply.user.username}</a>的回答]
+				                    </span>
+				                    <span class="replydet">{$vo.reply.content}</span>
+
+				                </div>
+				                {/if}
+				             </div>
+				                <div class="replymegfooter qa-footer clearfix">
+				                    <div class="wenda-time">
+				                        <div class="l-box l">
+				                            <em>时间：{$vo.create_time|date = 'Y-m-d H:i:s',###}</em>
+				                                                        <a href="http://www.imooc.com/video/12599" target="_blank">源自：{$result[0]['videoname']}</a>
+				                        </div>
+
+				                        <a href="{:url('Ask/detail',['id'=> $vo.id])}" target="_blank" class="replynumber static-count r">
+				                            <span class="static-item answer">
+				                                <b class="val"></b>
+				                                <span class="key">{$vo.count}回答</span>
+				                            </span>
+				                            <span class="static-item">
+				                                <b class="val">{$vo.clicknum}</b>
+				                                <span class="key">浏览</span>
+				                            </span>
+				                        </a>
+
+				                    </div>
+				                </div>
+				            </div>
+				            {/volist}
+				        </div>
+				 </div>
+
+	         	 <!-- 分页 -->
+	            <div class="fenye">
+	            {$ask->render()}
+	            </div>
+
+	        </div>
+	    </div>
+
+
+
+	</div>
+  </div>
+
+  <div class="course-right clearfix">
+
+  <div class="js-recom-box"><div class="box  mb40">                        <h4>课程描述</h4>                        <ul class="js-planrecom other-list">
+  							 <li>
+  							 <span class="name autowrap">{$result[0]['descr']}</span>
+  							 </li></ul>
+  							 </div>
+  					</div>
+
+<div class="js-recom-box"><div class="box  mb40">
+<h4>推荐课程</h4>
+<ul class="js-planrecom other-list">
+{volist name = "gvideo" id = "gvideo"}
+		<a href="{:url('Details/index',['id' => $gvideo['id']])}"> <li><span class="name autowrap">{$gvideo['videoname']}</span></li></a>
+
+{/volist}
+</ul>
+	 </div>
+  					</div>
+
+  </div>
+</div>
+
+{/block}
+</body></html>
